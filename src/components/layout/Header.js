@@ -16,8 +16,7 @@ const Header = (props) => {
                     <Text className={style.logo}>Pokemon</Text>
                 </Box>
                 <Box p="2">
-                    <Text className={style.headerContent}>UserName</Text>
-                    <Text className={style.headerContent}>Total Pokemon</Text>
+                    <Text className={style.headerContent}>My Pokemon Details</Text>
                 </Box>
             </Flex>
         </div>

@@ -9,7 +9,17 @@ body {
     background: #eaedf2 !important;
 }
 
+input{
+    border: 1px solid #9a9595 !important;
+    border-radius: 0 !important;
+}
+
 input:focus{
     box-shadow: none !important;
     border-color: inherit !important;
+}
+
+.loader-gif{
+    max-width: 50%;
+    margin: 0 auto;
 }
