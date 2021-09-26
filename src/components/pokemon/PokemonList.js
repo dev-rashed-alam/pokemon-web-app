@@ -1,16 +1,17 @@
 import React, {useEffect, useState} from "react"
-import Loader from "../layout/Loader";
 import ApiHandler from "../../config/ApiHandler";
 import PokemonCard from "./PokemonCard";
 import {Grid} from "@chakra-ui/react";
 import PaginationButton from "./PaginationButton";
+import {useDispatch} from "react-redux";
+import {stopLoader} from "../../store/action/LoaderAction";
 
 const PokemonList = () => {
 
+    const dispatch = useDispatch();
     const [pokemonList, setPokemonList] = useState([]);
     const [previousPage, setPreviousPage] = useState(null);
     const [nextPage, setNextPage] = useState(null);
-    const [loader, setLoader] = useState(true);
 
     useEffect(() => {
         getPokemonList("pokemon");
@@ -27,7 +28,7 @@ const PokemonList = () => {
                     console.log(error)
                 })
             });
-            setLoader(false);
+            dispatch(stopLoader(false))
         }).catch((error) => {
             console.log(error)
         })
@@ -44,7 +45,6 @@ const PokemonList = () => {
 
     return (
         <>
-            <Loader triggerLoader={loader}/>
             <Grid templateColumns="repeat(5, 1fr)" gap={6}>
                 {renderPokemonThumb()}
             </Grid>
