@@ -4,6 +4,7 @@ import Layout from "./layout/Layout"
 import "../assets/styles/App.css"
 import Home from "./pages/Home";
 import PokemonDetailsView from "./pages/PokemonDetailsView";
+import MyTeamList from "./pages/MyTeamList";
 
 function App() {
     return (
@@ -15,6 +16,9 @@ function App() {
                     </Route>
                     <Route exact path="/details/:identifier">
                         <PokemonDetailsView/>
+                    </Route>
+                    <Route exact path="/myTeam">
+                        <MyTeamList/>
                     </Route>
                     <Route exact path="/404">
                         <p>404</p>

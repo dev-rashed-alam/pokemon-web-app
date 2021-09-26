@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import {Box, Button, Container, Grid, GridItem, Stack, Text} from "@chakra-ui/react";
+import {Box, Container, Grid, GridItem, Text} from "@chakra-ui/react";
 import ApiHandler from "../../config/ApiHandler";
 import {useParams} from "react-router-dom";
 import pokemon from "../../assets/styles/pokemon.module.css"
@@ -7,6 +7,7 @@ import {backendServerUrl} from "../../config/Config";
 import {useDispatch, useSelector} from "react-redux";
 import Loader from "../layout/Loader";
 import {openLoader, stopLoader} from "../../store/action/LoaderAction";
+import ActionButton from "../pokemon/ActionButton";
 
 const PokemonDetailsView = (props) => {
 
@@ -14,7 +15,7 @@ const PokemonDetailsView = (props) => {
     const [getPokemon, setPokemon] = useState({});
     const [pokemonDetails, setPokemonDetails] = useState({});
     const {identifier} = useParams();
-    const loaderFlag = useSelector(store => store.loaderStore);
+    const {loader} = useSelector(store => store.loaderStore);
 
     useEffect(() => {
         dispatch(openLoader(true));
@@ -56,7 +57,7 @@ const PokemonDetailsView = (props) => {
     }, [identifier]);
 
     const renderDetails = () => {
-        if (!loaderFlag && Object.keys(getPokemon).length > 0) {
+        if (!loader && Object.keys(getPokemon).length > 0) {
             return (
                 <Grid templateColumns="repeat(5, 1fr)" gap={4}>
                     <GridItem colSpan={2}>
@@ -81,7 +82,7 @@ const PokemonDetailsView = (props) => {
                                 className={pokemon.textHeading}>Moves: </span>{pokemonDetails.moves}</Text>
                             <Text className={pokemon.text}><span
                                 className={pokemon.textHeading}>Game Indices: </span>{pokemonDetails.indices}</Text>
-                            {renderButton()}
+                            <ActionButton identifier={identifier}/>
                         </div>
                     </GridItem>
                 </Grid>
@@ -89,24 +90,12 @@ const PokemonDetailsView = (props) => {
         }
     };
 
-    const renderButton = () => {
-        return (
-            <Stack mt={3} direction="row" align="center" justify="center">
-                <Button colorScheme="teal" size="sm" className={pokemon.btn}>
-                    Add to my Team
-                </Button>
-                <Button colorScheme="teal" size="sm" className={pokemon.btn}>
-                    Remove from my Team
-                </Button>
-            </Stack>
-        )
-    };
 
     return (
         <Container maxW="container.xl">
             <Box padding="4" bg="gray.100" mt={8} mb={8}>
                 <Text className={pokemon.title}>Details view of {identifier}</Text>
-                <Loader triggerLoader={loaderFlag}/>
+                <Loader/>
                 {renderDetails()}
             </Box>
         </Container>

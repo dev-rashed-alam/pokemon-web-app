@@ -1,13 +1,15 @@
 import {ActionTypes} from "../ActionType";
 
-let loader = false;
+const initialState = {
+    loader: false
+};
 
-const LoaderReducer = (state = loader, action) => {
+const LoaderReducer = (state = initialState, action) => {
     switch (action.type) {
         case ActionTypes.OPEN_LOADER:
-            return action.payload;
+            return {loader: true};
         case ActionTypes.STOP_LOADER:
-            return action.payload;
+            return {loader: false};
         default:
             return state;
     }
