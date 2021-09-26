@@ -3,16 +3,22 @@ import {Box, Button, Container, Grid, GridItem, Stack, Text} from "@chakra-ui/re
 import ApiHandler from "../../config/ApiHandler";
 import {useParams} from "react-router-dom";
 import pokemon from "../../assets/styles/pokemon.module.css"
+import {backendServerUrl} from "../../config/Config";
+import {useDispatch, useSelector} from "react-redux";
+import Loader from "../layout/Loader";
+import {openLoader, stopLoader} from "../../store/action/LoaderAction";
 
 const PokemonDetailsView = (props) => {
 
+    const dispatch = useDispatch();
     const [getPokemon, setPokemon] = useState({});
     const [pokemonDetails, setPokemonDetails] = useState({});
     const {identifier} = useParams();
-    const [loader, setLoader] = useState(true);
+    const loaderFlag = useSelector(store => store.loaderStore);
 
     useEffect(() => {
-        ApiHandler.getApi("pokemon/" + identifier).then((response) => {
+        dispatch(openLoader(true));
+        ApiHandler.getApi(backendServerUrl + "pokemon/" + identifier).then((response) => {
             setPokemon(response.data);
             let typeString = "";
             let abilities = "";
@@ -41,14 +47,16 @@ const PokemonDetailsView = (props) => {
                 indices: indices,
                 stats: stats
             });
-            setLoader(false)
+            setTimeout(() => {
+                dispatch(stopLoader(false))
+            }, 500)
         }).catch((error) => {
             console.log(error)
         })
     }, [identifier]);
 
     const renderDetails = () => {
-        if (!loader) {
+        if (!loaderFlag && Object.keys(getPokemon).length > 0) {
             return (
                 <Grid templateColumns="repeat(5, 1fr)" gap={4}>
                     <GridItem colSpan={2}>
@@ -73,6 +81,7 @@ const PokemonDetailsView = (props) => {
                                 className={pokemon.textHeading}>Moves: </span>{pokemonDetails.moves}</Text>
                             <Text className={pokemon.text}><span
                                 className={pokemon.textHeading}>Game Indices: </span>{pokemonDetails.indices}</Text>
+                            {renderButton()}
                         </div>
                     </GridItem>
                 </Grid>
@@ -96,9 +105,9 @@ const PokemonDetailsView = (props) => {
     return (
         <Container maxW="container.xl">
             <Box padding="4" bg="gray.100" mt={8} mb={8}>
-                <Text className={pokemon.title}>Details view of {getPokemon.name}</Text>
+                <Text className={pokemon.title}>Details view of {identifier}</Text>
+                <Loader triggerLoader={loaderFlag}/>
                 {renderDetails()}
-                {renderButton()}
             </Box>
         </Container>
     );

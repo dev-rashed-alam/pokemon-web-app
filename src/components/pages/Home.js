@@ -9,17 +9,17 @@ import {openLoader} from "../../store/action/LoaderAction";
 const Home = () => {
 
     const dispatch = useDispatch();
-    const loaderFlag = useSelector(state => state.loaderStore);
+    const loaderFlag = useSelector(store => store.loaderStore);
 
     useEffect(() => {
-    dispatch(openLoader(true));
-    },[]);
+        dispatch(openLoader(true));
+    }, []);
 
     return (
         <Container maxW="container.xl">
             <Box padding="4" bg="gray.100" mt={8}>
-                <Loader triggerLoader={loaderFlag}/>
                 <SearchBar/>
+                <Loader triggerLoader={loaderFlag}/>
                 <PokemonList/>
             </Box>
         </Container>

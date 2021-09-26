@@ -1,45 +1,29 @@
-import React, {useEffect, useState} from "react"
-import ApiHandler from "../../config/ApiHandler";
+import React, {useEffect} from "react"
 import PokemonCard from "./PokemonCard";
 import {Grid} from "@chakra-ui/react";
 import PaginationButton from "./PaginationButton";
-import {useDispatch} from "react-redux";
-import {stopLoader} from "../../store/action/LoaderAction";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchPokemonList} from "../../store/action/PokemonAction";
+import {backendServerUrl} from "../../config/Config";
 
 const PokemonList = () => {
 
     const dispatch = useDispatch();
-    const [pokemonList, setPokemonList] = useState([]);
-    const [previousPage, setPreviousPage] = useState(null);
-    const [nextPage, setNextPage] = useState(null);
+    const {nextPage, previousPage, pokemonList} = useSelector(store => store.pokemonStore);
 
     useEffect(() => {
-        getPokemonList("pokemon");
+        let url = backendServerUrl + "pokemon";
+        dispatch(fetchPokemonList(url));
     }, []);
-
-    const getPokemonList = (url) => {
-        ApiHandler.getApi(url).then((response) => {
-            setNextPage(response.data.next);
-            setPreviousPage(response.data.previous);
-            response.data.results.forEach(async item => {
-                await ApiHandler.getApi("pokemon/" + item.name).then((response) => {
-                    setPokemonList(prevList => [...prevList, response.data]);
-                }).catch((error) => {
-                    console.log(error)
-                })
-            });
-            dispatch(stopLoader(false))
-        }).catch((error) => {
-            console.log(error)
-        })
-    };
 
 
     const renderPokemonThumb = () => {
-        return pokemonList.map((item) => {
-            return <PokemonCard name={item.name} image={item.sprites.other.dream_world.front_default}
-                                type={item.types}/>
-        })
+        if (pokemonList.length > 0) {
+            return pokemonList.map((item) => {
+                return <PokemonCard name={item.name} image={item.sprites.other.dream_world.front_default}
+                                    type={item.types}/>
+            })
+        }
     };
 
 

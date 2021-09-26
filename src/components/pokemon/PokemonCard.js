@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import pokemon from "../../assets/styles/pokemon.module.css"
+import {Link} from "react-router-dom";
 
 const PokemonCard = ({name, image, type}) => {
 
@@ -16,7 +17,7 @@ const PokemonCard = ({name, image, type}) => {
     return (
         <div className={pokemon.item}>
             <div>
-                <img src={image} alt={name} className={pokemon.image}/>
+                <Link to={`/details/${name}`}><img src={image} alt={name} className={pokemon.image}/></Link>
             </div>
             <div className={pokemon.details}>
                 <h3>{name}</h3>
