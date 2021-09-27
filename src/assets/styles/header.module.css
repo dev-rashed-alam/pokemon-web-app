@@ -21,3 +21,15 @@
     cursor: pointer;
     text-align: right;
 }
+
+@media only screen and (max-width: 425px){
+    .logo{
+        font-size: 19px !important;
+    }
+    .header{
+        padding: 0 !important;
+    }
+    .search{
+        width: 80% !important;
+    }
+}

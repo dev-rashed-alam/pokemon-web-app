@@ -5,11 +5,13 @@ import PaginationButton from "../pokemon/PaginationButton";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchPokemonList} from "../../store/action/PokemonAction";
 import {backendServerUrl} from "../../config/Config";
+import listStyle from "../../assets/styles/pokemon.module.css"
 
 const PokemonList = () => {
 
     const dispatch = useDispatch();
     const {pokemonList} = useSelector(store => store.pokemonStore);
+    const {loader} = useSelector(store => store.loaderStore);
 
     useEffect(() => {
         let url = backendServerUrl + "pokemon";
@@ -29,10 +31,10 @@ const PokemonList = () => {
 
     return (
         <>
-            <Grid templateColumns="repeat(5, 1fr)" gap={6}>
-                {renderPokemonThumb()}
+            <Grid templateColumns="repeat(5, 1fr)" gap={6} className={listStyle.listGrid + " "}>
+                {!loader && renderPokemonThumb()}
             </Grid>
-            <PaginationButton/>
+            {!loader && <PaginationButton/>}
         </>
     )
 };

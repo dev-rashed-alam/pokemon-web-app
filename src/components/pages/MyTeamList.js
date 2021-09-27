@@ -5,11 +5,14 @@ import {useDispatch, useSelector} from "react-redux";
 import pokemon from "../../assets/styles/pokemon.module.css";
 import Loader from "../layout/Loader";
 import {fetchMyPokemonList} from "../../store/action/MyPokemonAction";
+import listStyle from "../../assets/styles/pokemon.module.css"
 
 const MyTeamList = () => {
 
     const dispatch = useDispatch();
     const {myPokemon, pokemonList} = useSelector(store => store.myPokemonStore);
+    const {loader} = useSelector(store => store.loaderStore);
+
 
     useEffect(() => {
         dispatch(fetchMyPokemonList(pokemonList))
@@ -30,8 +33,8 @@ const MyTeamList = () => {
             <Box padding="4" bg="gray.100" mt={8} mb={8}>
                 <Text className={pokemon.title}>Details of my Team</Text>
                 <Loader/>
-                <Grid templateColumns="repeat(5, 1fr)" gap={6}>
-                    {renderPokemonThumb()}
+                <Grid templateColumns="repeat(5, 1fr)" gap={6} className={listStyle.listGrid + " "}>
+                    {!loader && renderPokemonThumb()}
                 </Grid>
             </Box>
         </Container>

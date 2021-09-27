@@ -89,3 +89,50 @@
     font-size: 13px;
     letter-spacing: 1.2px;
 }
+
+@media only screen and (max-width: 1150px){
+    .listGrid{
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+}
+
+@media only screen and (max-width: 960px){
+    .listGrid{
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+@media only screen and (max-width: 700px){
+    .listGrid{
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media only screen and (max-width: 480px){
+    .listGrid{
+        grid-template-columns: repeat(1, 1fr) !important;
+    }
+}
+@media only screen and (max-width: 400px){
+    .responsiveButton{
+        font-size: 11px !important;
+    }
+}
+@media only screen and (max-width: 800px){
+    .detailsGrid{
+        display: block !important;
+    }
+    .actionButton button{
+        white-space: inherit !important;
+        display: block !important;
+        min-width: 100% !important;
+        margin: 5px 0;
+    }
+    .actionButton{
+        display: block !important;
+    }
+    .removeButton{
+        margin: 10px 0 !important;
+    }
+}
+

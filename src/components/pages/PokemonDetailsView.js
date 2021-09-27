@@ -59,7 +59,7 @@ const PokemonDetailsView = (props) => {
     const renderDetails = () => {
         if (!loader && Object.keys(getPokemon).length > 0) {
             return (
-                <Grid templateColumns="repeat(5, 1fr)" gap={4}>
+                <Grid templateColumns="repeat(5, 1fr)" gap={4} className={pokemon.detailsGrid}>
                     <GridItem colSpan={2}>
                         <div className={pokemon.item + " " + pokemon.detailsItem}>
                             <div>

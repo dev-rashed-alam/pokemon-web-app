@@ -28,11 +28,11 @@ const SearchBar = () => {
                     children={<SearchIcon color="gray.300"/>}
                 />
                 <Input type="text" placeholder="Search using pokemon name" value={searchInput}
-                       onChange={(e) => setSearchInput(e.target.value)}/>
-                <Button ml={2} size="md" className={pokemon.btn} onClick={searchHandler}>
+                       onChange={(e) => setSearchInput(e.target.value)} className={pokemon.search}/>
+                <Button ml={2} size="md" className={pokemon.btn + " " + pokemon.responsiveButton} onClick={searchHandler}>
                     Search
                 </Button>
-                <Button ml={2} size="md" className={pokemon.btn} onClick={resetHandler}>
+                <Button ml={2} size="md" className={pokemon.btn  + " " + pokemon.responsiveButton} onClick={resetHandler}>
                     Reset
                 </Button>
             </InputGroup>

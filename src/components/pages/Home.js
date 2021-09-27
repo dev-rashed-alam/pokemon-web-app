@@ -8,7 +8,7 @@ import {openLoader} from "../../store/action/LoaderAction";
 
 const Home = () => {
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(openLoader(true));
