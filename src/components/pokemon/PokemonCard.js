@@ -20,7 +20,7 @@ const PokemonCard = ({name, image, type}) => {
                 <Link to={`/details/${name}`}><img src={image} alt={name} className={pokemon.image}/></Link>
             </div>
             <div className={pokemon.details}>
-                <h3>{name}</h3>
+                <Link to={`/details/${name}`}><h3>{name}</h3></Link>
                 <p>Type: {getType}</p>
             </div>
         </div>

@@ -16,6 +16,7 @@ const MyTeamList = () => {
 
     useEffect(() => {
         dispatch(fetchMyPokemonList(pokemonList))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const renderPokemonThumb = () => {

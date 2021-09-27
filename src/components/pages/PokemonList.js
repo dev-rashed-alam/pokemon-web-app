@@ -16,6 +16,7 @@ const PokemonList = () => {
     useEffect(() => {
         let url = backendServerUrl + "pokemon";
         dispatch(fetchPokemonList(url));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 
